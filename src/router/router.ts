@@ -4,6 +4,7 @@ import Router, { RouterOptions } from 'vue-router';
 import redirectToSignUpPageIfUserNotLoggedIn from './hooks/redirect-if-not-logged-in';
 import redirectToHomePagePageIfUserLoggedIn from './hooks/redirect-if-logged-in';
 import store, { RootState } from '@/store/store';
+import AppLayout from '@/views/app-layout.vue';
 
 Vue.use(Router);
 
@@ -15,7 +16,7 @@ export const routerConfig: RouterOptions = {
       path: '/',
       beforeEnter(to, from, next) {
         if (store.getters['auth/isUserLoggedIn']) {
-          next('/wallgroups');
+          next('/home');
         } else {
           next('/landing');
         }
@@ -23,8 +24,21 @@ export const routerConfig: RouterOptions = {
     },
     {
       path: '/landing',
+      meta: { guestOnly: true },
       component: () =>
         import(/* webpackChunkName: "landing" */ '../views/landing-page.vue'),
+    },
+    {
+      path: '/sign-in',
+      meta: { guestOnly: true },
+      component: () =>
+        import(/* webpackChunkName: "landing" */ '../views/sign-in-page.vue'),
+    },
+    {
+      path: '/home',
+      meta: { requiresAuth: true },
+      component: () =>
+        import(/* webpackChunkName: "landing" */ '../views/home-page.vue'),
     },
   ],
 };

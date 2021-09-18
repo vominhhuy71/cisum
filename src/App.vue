@@ -35,6 +35,7 @@ export default class App extends Vue {}
 
 html {
   font-family: 'Roboto', sans-serif;
+  height: 100%;
 }
 
 body {

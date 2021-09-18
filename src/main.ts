@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import App from './App.vue';
-import { importGlobalComponents } from './import-global-components';
 import firebase from 'firebase/compat/app';
-import router from './router/router';
+import { importGlobalComponents } from './import-global-components';
+import router, { setUpRouterHooks } from './router/router';
 import store from './store/store';
 
 Vue.config.productionTip = false;
 
 importGlobalComponents();
-
+setUpRouterHooks(store);
 try {
   const firebaseConfig = JSON.parse(process.env.VUE_APP_FIREBASE as string);
   firebase.initializeApp(firebaseConfig);
