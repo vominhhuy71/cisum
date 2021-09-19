@@ -57,6 +57,7 @@ const actions: ActionTree<AuthState, RootState> = {
     return signOut(auth).then(() => {
       commit('setAccessToken', '');
       commit('setLoggedFrom', null);
+      router.push('/landing');
     });
   },
   goToAppAndFinishAuth(
